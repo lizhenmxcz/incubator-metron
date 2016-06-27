@@ -16,5 +16,11 @@
 #
 ---
 - include: dependencies.yml
+<<<<<<< HEAD
 - include: install_kibana.yml
 
+=======
+- include: kibana.yml
+- include: elasticdump.yml
+- include: dashboard.yml
+>>>>>>> upstream/master

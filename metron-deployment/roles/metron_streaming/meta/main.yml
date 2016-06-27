@@ -18,3 +18,7 @@
 dependencies:
   - ambari_gather_facts
   - java_jdk
+<<<<<<< HEAD
+=======
+  - libselinux-python
+>>>>>>> upstream/master

@@ -32,14 +32,38 @@ public class ParserWriterConfiguration implements WriterConfiguration {
   }
   @Override
   public int getBatchSize(String sensorName) {
+<<<<<<< HEAD
     Object batchObj = config.getSensorParserConfig(sensorName).getParserConfig().get(BATCH_CONF);
     return batchObj == null?1:ConversionUtils.convert(batchObj, Integer.class);
+=======
+    if(config != null
+    && config.getSensorParserConfig(sensorName) != null
+    && config.getSensorParserConfig(sensorName).getParserConfig() != null
+      ) {
+      Object batchObj = config.getSensorParserConfig(sensorName).getParserConfig().get(BATCH_CONF);
+      return batchObj == null ? 1 : ConversionUtils.convert(batchObj, Integer.class);
+    }
+    return 1;
+>>>>>>> upstream/master
   }
 
   @Override
   public String getIndex(String sensorName) {
+<<<<<<< HEAD
     Object indexObj = config.getSensorParserConfig(sensorName).getParserConfig().get(INDEX_CONF);
     return indexObj.toString();
+=======
+    if(config != null && config.getSensorParserConfig(sensorName) != null
+    && config.getSensorParserConfig(sensorName).getParserConfig() != null
+      ) {
+      Object indexObj = config.getSensorParserConfig(sensorName).getParserConfig().get(INDEX_CONF);
+      if(indexObj != null) {
+        return indexObj.toString();
+      }
+      return null;
+    }
+    return sensorName;
+>>>>>>> upstream/master
   }
 
   @Override

@@ -60,6 +60,13 @@ FALSE : 'false'
 
 EQ : '==' ;
 NEQ : '!=' ;
+<<<<<<< HEAD
+=======
+LT : '<';
+LTE : '<=';
+GT : '>';
+GTE : '>=';
+>>>>>>> upstream/master
 COMMA : ',';
 
 LBRACKET : '[';
@@ -72,6 +79,12 @@ IN : 'in'
 NIN : 'not in'
    ;
 EXISTS : 'exists';
+<<<<<<< HEAD
+=======
+INT_LITERAL     : '0'..'9'+ ;
+DOUBLE_LITERAL  : '0'..'9'+'.''0'..'9'+ ;
+
+>>>>>>> upstream/master
 IDENTIFIER : [a-zA-Z_][a-zA-Z_\.0-9]* ;
 fragment SCHAR:  ~['"\\\r\n];
 STRING_LITERAL : '"' SCHAR* '"'
@@ -101,8 +114,13 @@ logical_expr
  ;
 
 comparison_expr : comparison_operand comp_operator comparison_operand # ComparisonExpressionWithOperator
+<<<<<<< HEAD
                 | identifier_operand IN list_entity #InExpression
                 | identifier_operand NIN list_entity #NInExpression
+=======
+                | identifier_operand IN identifier_operand #InExpression
+                | identifier_operand NIN identifier_operand #NInExpression
+>>>>>>> upstream/master
                 | LPAREN comparison_expr RPAREN # ComparisonExpressionParens
                 ;
 
@@ -118,14 +136,31 @@ func_args : op_list
 op_list : identifier_operand
         | op_list COMMA identifier_operand
         ;
+<<<<<<< HEAD
 identifier_operand : STRING_LITERAL # StringLiteral
                    | IDENTIFIER     # LogicalVariable
                    | IDENTIFIER LPAREN func_args RPAREN #StringFunc
+=======
+
+t_func : IDENTIFIER LPAREN func_args RPAREN #TransformationFunc
+       ;
+
+identifier_operand : STRING_LITERAL # StringLiteral
+                   | IDENTIFIER     # LogicalVariable
+                   | t_func #id_tfunc
+                   | INT_LITERAL #IntegerLiteral
+                   | DOUBLE_LITERAL #DoubleLiteral
+                   | list_entity #List
+>>>>>>> upstream/master
                    ;
 
 comparison_operand : identifier_operand #IdentifierOperand
                    | logical_entity # LogicalConstComparison
                    ;
 
+<<<<<<< HEAD
 comp_operator : (EQ | NEQ) # ComparisonOp
+=======
+comp_operator : (EQ | NEQ | LT | LTE | GT | GTE) # ComparisonOp
+>>>>>>> upstream/master
               ;

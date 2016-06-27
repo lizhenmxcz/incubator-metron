@@ -37,7 +37,11 @@ Any platform that supports these tools is suitable, but the following instructio
 1. Build Metron
 
   ```
+<<<<<<< HEAD
   cd metron-platform
+=======
+  cd incubator-metron
+>>>>>>> upstream/master
   mvn clean package -DskipTests
   ```
 

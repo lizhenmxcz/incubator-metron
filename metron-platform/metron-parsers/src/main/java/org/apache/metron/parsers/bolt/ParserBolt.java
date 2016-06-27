@@ -43,6 +43,11 @@ import org.apache.metron.parsers.interfaces.MessageFilter;
 import org.apache.metron.parsers.interfaces.MessageParser;
 import org.apache.metron.common.interfaces.MessageWriter;
 import org.json.simple.JSONObject;
+<<<<<<< HEAD
+=======
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+>>>>>>> upstream/master
 
 import java.io.Serializable;
 import java.util.*;
@@ -50,6 +55,7 @@ import java.util.function.Function;
 
 public class ParserBolt extends ConfiguredParserBolt implements Serializable {
 
+<<<<<<< HEAD
   private OutputCollector collector;
   private MessageParser<JSONObject> parser;
   private MessageFilter<JSONObject> filter = new GenericMessageFilter();
@@ -82,6 +88,24 @@ public class ParserBolt extends ConfiguredParserBolt implements Serializable {
 
 
   }
+=======
+  private static final Logger LOG = LoggerFactory.getLogger(ParserBolt.class);
+  private OutputCollector collector;
+  private MessageParser<JSONObject> parser;
+  private MessageFilter<JSONObject> filter = new GenericMessageFilter();
+  private WriterHandler writer;
+  public ParserBolt( String zookeeperUrl
+                   , String sensorType
+                   , MessageParser<JSONObject> parser
+                   , WriterHandler writer
+  )
+  {
+    super(zookeeperUrl, sensorType);
+    this.writer = writer;
+    this.parser = parser;
+  }
+
+>>>>>>> upstream/master
 
   public ParserBolt withMessageFilter(MessageFilter<JSONObject> filter) {
     this.filter = filter;
@@ -103,6 +127,7 @@ public class ParserBolt extends ConfiguredParserBolt implements Serializable {
     }
     parser.init();
 
+<<<<<<< HEAD
     if(isBulk) {
       writerTransformer = config -> new ParserWriterConfiguration(config);
     }
@@ -120,6 +145,10 @@ public class ParserBolt extends ConfiguredParserBolt implements Serializable {
         return new HashSet<>();
       }
     };
+=======
+    writer.init(stormConf, collector, getConfigurations());
+
+>>>>>>> upstream/master
     SensorParserConfig config = getSensorParserConfig();
     if(config != null) {
       config.init();
@@ -139,7 +168,11 @@ public class ParserBolt extends ConfiguredParserBolt implements Serializable {
     try {
       //we want to ack the tuple in the situation where we have are not doing a bulk write
       //otherwise we want to defer to the writerComponent who will ack on bulk commit.
+<<<<<<< HEAD
       boolean ackTuple = !isBulk;
+=======
+      boolean ackTuple = !writer.handleAck();
+>>>>>>> upstream/master
       int numWritten = 0;
       if(sensorParserConfig != null) {
         List<FieldValidator> fieldValidations = getConfigurations().getFieldValidations();
@@ -152,13 +185,21 @@ public class ParserBolt extends ConfiguredParserBolt implements Serializable {
                 handler.transformAndUpdate(message, sensorParserConfig.getParserConfig());
               }
             }
+<<<<<<< HEAD
+=======
+            numWritten++;
+>>>>>>> upstream/master
             if(!isGloballyValid(message, fieldValidations)) {
               message.put(Constants.SENSOR_TYPE, getSensorType()+ ".invalid");
               collector.emit(Constants.INVALID_STREAM, new Values(message));
             }
             else {
+<<<<<<< HEAD
               numWritten++;
               writerComponent.write(getSensorType(), tuple, message, messageWriter, writerTransformer.apply(getConfigurations()));
+=======
+              writer.write(getSensorType(), tuple, message, getConfigurations());
+>>>>>>> upstream/master
             }
           }
         }
@@ -170,7 +211,16 @@ public class ParserBolt extends ConfiguredParserBolt implements Serializable {
         collector.ack(tuple);
       }
     } catch (Throwable ex) {
+<<<<<<< HEAD
       ErrorUtils.handleError(collector, ex, Constants.ERROR_STREAM);
+=======
+      ErrorUtils.handleError( collector
+                            , ex
+                            , Constants.ERROR_STREAM
+                            , Optional.of(getSensorType())
+                            , Optional.ofNullable(originalMessage)
+                            );
+>>>>>>> upstream/master
       collector.ack(tuple);
     }
   }

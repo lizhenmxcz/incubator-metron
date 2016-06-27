@@ -281,6 +281,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new FixedPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), 2);
       }
       {
@@ -296,6 +300,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new QueryPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), 2);
       }
       {
@@ -312,6 +320,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new FixedPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), 0);
       }
       {
@@ -327,6 +339,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new QueryPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), 0);
       }
       {
@@ -343,6 +359,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new FixedPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), 0);
       }
       {
@@ -358,6 +378,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new QueryPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), 0);
       }
       {
@@ -372,6 +396,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new FixedPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), pcapEntries.size());
       }
       {
@@ -387,6 +415,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new QueryPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertEquals(results.size(), pcapEntries.size());
       }
       {
@@ -402,6 +434,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new FixedPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertTrue(results.size() > 0);
         Assert.assertEquals(results.size()
                 , Iterables.size(filterPcaps(pcapEntries, new Predicate<JSONObject>() {
@@ -429,6 +465,10 @@ public class PcapTopologyIntegrationTest {
                         , FileSystem.get(new Configuration())
                         , new QueryPcapFilter.Configurator()
                 );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         Assert.assertTrue(results.size() > 0);
         Assert.assertEquals(results.size()
                 , Iterables.size(filterPcaps(pcapEntries, new Predicate<JSONObject>() {
@@ -440,6 +480,10 @@ public class PcapTopologyIntegrationTest {
                 }, withHeaders)
                 )
         );
+<<<<<<< HEAD
+=======
+        assertInOrder(results);
+>>>>>>> upstream/master
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PcapMerger.merge(baos, results);
         Assert.assertTrue(baos.toByteArray().length > 0);
@@ -452,6 +496,21 @@ public class PcapTopologyIntegrationTest {
     }
   }
 
+<<<<<<< HEAD
+=======
+  public static void assertInOrder(Iterable<byte[]> packets) {
+    long previous = 0;
+    for(byte[] packet : packets) {
+      for(JSONObject json : TO_JSONS.apply(packet)) {
+        Long current = Long.parseLong(json.get("ts_micro").toString());
+        Assert.assertNotNull(current);
+        Assert.assertTrue(Long.compareUnsigned(current, previous) >= 0);
+        previous = current;
+      }
+    }
+  }
+
+>>>>>>> upstream/master
   public static Function<byte[], Iterable<JSONObject>> TO_JSONS = new Function<byte[], Iterable<JSONObject>>() {
     @Nullable
     @Override

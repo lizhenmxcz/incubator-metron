@@ -20,11 +20,19 @@ package org.apache.metron.integration.components;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.metron.common.configuration.ConfigurationsUtils;
 import org.apache.metron.common.configuration.SensorParserConfig;
+<<<<<<< HEAD
+=======
+import org.apache.metron.common.utils.JSONUtils;
+>>>>>>> upstream/master
 import org.apache.metron.integration.InMemoryComponent;
 import org.apache.metron.integration.UnableToStartException;
 
 import java.util.HashMap;
 import java.util.Map;
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+>>>>>>> upstream/master
 import java.util.Properties;
 
 public class ConfigUploadComponent implements InMemoryComponent {
@@ -33,6 +41,10 @@ public class ConfigUploadComponent implements InMemoryComponent {
   private String globalConfigPath;
   private String parserConfigsPath;
   private String enrichmentConfigsPath;
+<<<<<<< HEAD
+=======
+  private Optional<String> globalConfig = Optional.empty();
+>>>>>>> upstream/master
   private Map<String, SensorParserConfig> parserSensorConfigs = new HashMap<>();
   public ConfigUploadComponent withTopologyProperties(Properties topologyProperties) {
     this.topologyProperties = topologyProperties;
@@ -58,21 +70,46 @@ public class ConfigUploadComponent implements InMemoryComponent {
     return this;
   }
 
+<<<<<<< HEAD
+=======
+  public ConfigUploadComponent withGlobalConfig(String globalConfig) {
+    this.globalConfig = Optional.ofNullable(globalConfig);
+    return this;
+  }
+>>>>>>> upstream/master
 
   @Override
   public void start() throws UnableToStartException {
     try {
+<<<<<<< HEAD
       ConfigurationsUtils.uploadConfigsToZookeeper( globalConfigPath
                                                   , parserConfigsPath
                                                   , enrichmentConfigsPath
                                                   , topologyProperties.getProperty(KafkaWithZKComponent.ZOOKEEPER_PROPERTY)
                                                   );
+=======
+      if(globalConfigPath != null) {
+        ConfigurationsUtils.uploadConfigsToZookeeper(globalConfigPath
+                , parserConfigsPath
+                , enrichmentConfigsPath
+                , topologyProperties.getProperty(KafkaWithZKComponent.ZOOKEEPER_PROPERTY)
+        );
+      }
+>>>>>>> upstream/master
       for(Map.Entry<String, SensorParserConfig> kv : parserSensorConfigs.entrySet()) {
         ConfigurationsUtils.writeSensorParserConfigToZookeeper( kv.getKey()
                                                               , kv.getValue()
                                                               , topologyProperties.getProperty(KafkaWithZKComponent.ZOOKEEPER_PROPERTY)
                                                               );
       }
+<<<<<<< HEAD
+=======
+      if(globalConfig.isPresent()) {
+        ConfigurationsUtils.writeGlobalConfigToZookeeper(globalConfig.get().getBytes()
+                                                        , topologyProperties.getProperty(KafkaWithZKComponent.ZOOKEEPER_PROPERTY)
+                                                        );
+      }
+>>>>>>> upstream/master
 
     } catch (Exception e) {
       throw new UnableToStartException(e.getMessage(), e);

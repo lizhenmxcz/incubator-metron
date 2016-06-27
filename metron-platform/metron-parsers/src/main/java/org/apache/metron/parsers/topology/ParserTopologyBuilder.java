@@ -19,6 +19,10 @@ package org.apache.metron.parsers.topology;
 
 import backtype.storm.topology.TopologyBuilder;
 import org.apache.curator.framework.CuratorFramework;
+<<<<<<< HEAD
+=======
+import org.apache.metron.common.Constants;
+>>>>>>> upstream/master
 import org.apache.metron.common.configuration.ConfigurationsUtils;
 import org.apache.metron.common.configuration.ParserConfigurations;
 import org.apache.metron.common.configuration.SensorParserConfig;
@@ -26,15 +30,28 @@ import org.apache.metron.common.configuration.writer.ParserWriterConfiguration;
 import org.apache.metron.common.interfaces.BulkMessageWriter;
 import org.apache.metron.common.interfaces.MessageWriter;
 import org.apache.metron.common.spout.kafka.SpoutConfig;
+<<<<<<< HEAD
 import org.apache.metron.common.utils.ReflectionUtils;
 import org.apache.metron.common.writer.AbstractWriter;
 import org.apache.metron.parsers.bolt.ParserBolt;
+=======
+import org.apache.metron.common.spout.kafka.SpoutConfigOptions;
+import org.apache.metron.common.utils.ReflectionUtils;
+import org.apache.metron.common.writer.AbstractWriter;
+import org.apache.metron.parsers.bolt.ParserBolt;
+import org.apache.metron.parsers.bolt.WriterBolt;
+import org.apache.metron.parsers.bolt.WriterHandler;
+>>>>>>> upstream/master
 import org.apache.metron.parsers.interfaces.MessageParser;
 import org.apache.metron.parsers.writer.KafkaWriter;
 import org.json.simple.JSONObject;
 import storm.kafka.KafkaSpout;
 import storm.kafka.ZkHosts;
 
+<<<<<<< HEAD
+=======
+import java.util.EnumMap;
+>>>>>>> upstream/master
 import java.util.Map;
 
 public class ParserTopologyBuilder {
@@ -46,7 +63,16 @@ public class ParserTopologyBuilder {
                          int spoutParallelism,
                          int spoutNumTasks,
                          int parserParallelism,
+<<<<<<< HEAD
                          int parserNumTasks
+=======
+                         int parserNumTasks,
+                         int invalidWriterParallelism,
+                         int invalidWriterNumTasks,
+                         int errorWriterParallelism,
+                         int errorWriterNumTasks,
+                         EnumMap<SpoutConfigOptions, Object> kafkaSpoutConfigOptions
+>>>>>>> upstream/master
                                      ) throws Exception {
     CuratorFramework client = ConfigurationsUtils.getClient(zookeeperUrl);
     client.start();
@@ -62,11 +88,16 @@ public class ParserTopologyBuilder {
     TopologyBuilder builder = new TopologyBuilder();
     ZkHosts zkHosts = new ZkHosts(zookeeperUrl);
     SpoutConfig spoutConfig = new SpoutConfig(zkHosts, sensorTopic, "", sensorTopic).from(offset);
+<<<<<<< HEAD
+=======
+    SpoutConfigOptions.configure(spoutConfig, kafkaSpoutConfigOptions);
+>>>>>>> upstream/master
     KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
     builder.setSpout("kafkaSpout", kafkaSpout, spoutParallelism)
            .setNumTasks(spoutNumTasks);
     MessageParser<JSONObject> parser = ReflectionUtils.createInstance(sensorParserConfig.getParserClassName());
     parser.configure(sensorParserConfig.getParserConfig());
+<<<<<<< HEAD
     ParserBolt parserBolt = null;
     {
       if(sensorParserConfig.getWriterClassName() == null) {
@@ -94,4 +125,70 @@ public class ParserTopologyBuilder {
     return builder;
   }
 
+=======
+
+    ParserBolt parserBolt = new ParserBolt(zookeeperUrl
+                                          , sensorType
+                                          , parser
+                                          ,getHandler( sensorType
+                                                     , configurations
+                                                     , sensorParserConfig.getWriterClassName() == null
+                                                     ? new KafkaWriter(brokerUrl).withTopic(Constants.ENRICHMENT_TOPIC)
+                                                     :ReflectionUtils.createInstance(sensorParserConfig.getWriterClassName())
+                                                     )
+                                          );
+
+    WriterBolt errorBolt = new WriterBolt(getHandler( sensorType
+                                                    , configurations
+                                                    , sensorParserConfig.getErrorWriterClassName() == null
+                                                    ? new KafkaWriter(brokerUrl).withTopic(Constants.DEFAULT_PARSER_ERROR_TOPIC)
+                                                                                .withConfigPrefix("error")
+                                                    :ReflectionUtils.createInstance(sensorParserConfig.getWriterClassName())
+                                                    )
+                                         , configurations
+                                         , sensorType
+                                         );
+    WriterBolt invalidBolt = new WriterBolt(getHandler( sensorType
+                                                    , configurations
+                                                    , sensorParserConfig.getErrorWriterClassName() == null
+                                                    ? new KafkaWriter(brokerUrl).withTopic(Constants.DEFAULT_PARSER_INVALID_TOPIC)
+                                                                                .withConfigPrefix("invalid")
+                                                    :ReflectionUtils.createInstance(sensorParserConfig.getWriterClassName())
+                                                    )
+                                         , configurations
+                                         , sensorType
+                                         );
+
+    builder.setBolt("parserBolt", parserBolt, parserParallelism)
+           .setNumTasks(parserNumTasks)
+           .shuffleGrouping("kafkaSpout");
+    if(errorWriterNumTasks > 0) {
+      builder.setBolt("errorMessageWriter", errorBolt, errorWriterParallelism)
+              .setNumTasks(errorWriterNumTasks)
+              .shuffleGrouping("parserBolt", Constants.ERROR_STREAM)
+      ;
+    }
+    if(invalidWriterNumTasks > 0) {
+      builder.setBolt("invalidMessageWriter", invalidBolt, invalidWriterParallelism)
+              .setNumTasks(invalidWriterNumTasks)
+              .shuffleGrouping("parserBolt", Constants.INVALID_STREAM)
+      ;
+    }
+    return builder;
+  }
+
+  private static WriterHandler getHandler(String sensorType, ParserConfigurations configurations, AbstractWriter writer) {
+    writer.configure(sensorType, new ParserWriterConfiguration(configurations));
+    if(writer instanceof BulkMessageWriter) {
+      return new WriterHandler((BulkMessageWriter<JSONObject>)writer);
+    }
+    else if(writer instanceof MessageWriter) {
+      return new WriterHandler((MessageWriter<JSONObject>)writer);
+    }
+    else {
+      throw new IllegalStateException("Unable to create parser bolt: writer must be a MessageWriter or a BulkMessageWriter");
+    }
+  }
+
+>>>>>>> upstream/master
 }

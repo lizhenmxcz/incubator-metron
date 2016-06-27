@@ -25,7 +25,11 @@ As with the Full Development Platform (`metron-deployment/vagrant/full-dev-platf
 1. Build Metron
 
   ```
+<<<<<<< HEAD
   cd metron-platform
+=======
+  cd incubator-metron
+>>>>>>> upstream/master
   mvn clean package -DskipTests
   ```
 

@@ -5,6 +5,7 @@ TRUE=4
 FALSE=5
 EQ=6
 NEQ=7
+<<<<<<< HEAD
 COMMA=8
 LBRACKET=9
 RBRACKET=10
@@ -29,3 +30,39 @@ WS=20
 'not in'=14
 'exists'=15
 ';'=18
+=======
+LT=8
+LTE=9
+GT=10
+GTE=11
+COMMA=12
+LBRACKET=13
+RBRACKET=14
+LPAREN=15
+RPAREN=16
+IN=17
+NIN=18
+EXISTS=19
+INT_LITERAL=20
+DOUBLE_LITERAL=21
+IDENTIFIER=22
+STRING_LITERAL=23
+SEMI=24
+COMMENT=25
+WS=26
+'=='=6
+'!='=7
+'<'=8
+'<='=9
+'>'=10
+'>='=11
+','=12
+'['=13
+']'=14
+'('=15
+')'=16
+'in'=17
+'not in'=18
+'exists'=19
+';'=24
+>>>>>>> upstream/master

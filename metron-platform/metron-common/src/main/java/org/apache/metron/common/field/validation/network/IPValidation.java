@@ -25,7 +25,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+<<<<<<< HEAD
 public class IPValidation implements FieldValidation, Predicate<List<String>> {
+=======
+public class IPValidation implements FieldValidation, Predicate<List<Object>> {
+>>>>>>> upstream/master
 
 
   private enum IPType {
@@ -77,16 +81,25 @@ public class IPValidation implements FieldValidation, Predicate<List<String>> {
    * otherwise {@code false}
    */
   @Override
+<<<<<<< HEAD
   public boolean test(List<String> strings) {
+=======
+  public boolean test(List<Object> strings) {
+>>>>>>> upstream/master
     IPType type = IPType.DEFAULT;
     if(strings.isEmpty()) {
       return false;
     }
+<<<<<<< HEAD
     String ip = strings.get(0);
+=======
+    Object ip =  strings.get(0);
+>>>>>>> upstream/master
     if(ip == null) {
       return false;
     }
     if(strings.size() >= 2) {
+<<<<<<< HEAD
       try {
         type = IPType.get(strings.get(1));
       }
@@ -95,6 +108,19 @@ public class IPValidation implements FieldValidation, Predicate<List<String>> {
       }
     }
     return type.isValid(ip);
+=======
+      Object ipType = strings.get(1);
+      if(ipType != null )
+      {
+        try {
+          type = IPType.get(ipType.toString());
+        } catch (Exception e) {
+          type = IPType.DEFAULT;
+        }
+      }
+    }
+    return type.isValid(ip.toString());
+>>>>>>> upstream/master
   }
   @Override
   public boolean isValid( Map<String, Object> input

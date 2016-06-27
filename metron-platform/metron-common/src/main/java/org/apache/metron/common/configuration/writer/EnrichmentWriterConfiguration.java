@@ -31,20 +31,48 @@ public class EnrichmentWriterConfiguration implements WriterConfiguration{
 
   @Override
   public int getBatchSize(String sensorName) {
+<<<<<<< HEAD
     return config.getSensorEnrichmentConfig(sensorName).getBatchSize();
+=======
+    if(config != null && config.getSensorEnrichmentConfig(sensorName) != null) {
+      return config.getSensorEnrichmentConfig(sensorName).getBatchSize();
+    }
+    return 1;
+>>>>>>> upstream/master
   }
 
   @Override
   public String getIndex(String sensorName) {
+<<<<<<< HEAD
     return config.getSensorEnrichmentConfig(sensorName).getIndex();
+=======
+    if(config != null && config.getSensorEnrichmentConfig(sensorName) != null) {
+      return config.getSensorEnrichmentConfig(sensorName).getIndex();
+    }
+    return sensorName;
+>>>>>>> upstream/master
   }
 
   @Override
   public Map<String, Object> getSensorConfig(String sensorName) {
+<<<<<<< HEAD
     return config.getSensorEnrichmentConfig(sensorName).getConfiguration();
   }
   @Override
   public Map<String, Object> getGlobalConfig() {
     return config.getGlobalConfig();
+=======
+    if(config != null && config.getSensorEnrichmentConfig(sensorName) != null) {
+      return config.getSensorEnrichmentConfig(sensorName).getConfiguration();
+    }
+    return null;
+  }
+  @Override
+  public Map<String, Object> getGlobalConfig() {
+    if(config != null) {
+      return config.getGlobalConfig();
+    }
+    return null;
+>>>>>>> upstream/master
   }
 }

@@ -59,7 +59,11 @@ echo "Launching Metron[$ENV] @ $NOW"... >> $LOGFILE
 $DEPLOYDIR/../scripts/platform-info.sh >> $LOGFILE
 
 # build metron
+<<<<<<< HEAD
 cd ../../metron-platform
+=======
+cd ../..
+>>>>>>> upstream/master
 mvn package -DskipTests
 
 # deploy metron

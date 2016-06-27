@@ -224,6 +224,10 @@ public class PcapJob {
     job.setMapperClass(PcapJob.PcapMapper.class);
     job.setMapOutputKeyClass(LongWritable.class);
     job.setMapOutputValueClass(BytesWritable.class);
+<<<<<<< HEAD
+=======
+    job.setNumReduceTasks(1);
+>>>>>>> upstream/master
     job.setReducerClass(PcapReducer.class);
     job.setOutputKeyClass(LongWritable.class);
     job.setOutputValueClass(BytesWritable.class);

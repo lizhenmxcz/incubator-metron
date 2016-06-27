@@ -18,7 +18,11 @@
     <parent>
         <groupId>org.apache.metron</groupId>
         <artifactId>metron-platform</artifactId>
+<<<<<<< HEAD
         <version>0.1BETA</version>
+=======
+        <version>0.2.0BETA</version>
+>>>>>>> upstream/master
     </parent>
     <artifactId>metron-enrichment</artifactId>
     <properties>
@@ -141,7 +145,11 @@
         <dependency>
             <groupId>org.apache.metron</groupId>
             <artifactId>metron-test-utilities</artifactId>
+<<<<<<< HEAD
             <version>0.1BETA</version>
+=======
+            <version>${project.parent.version}</version>
+>>>>>>> upstream/master
             <scope>test</scope>
         </dependency>
     </dependencies>

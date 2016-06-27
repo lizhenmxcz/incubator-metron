@@ -18,18 +18,33 @@
 
 package org.apache.metron.common.aggregator;
 
+<<<<<<< HEAD
+=======
+import org.apache.metron.common.utils.ConversionUtils;
+
+>>>>>>> upstream/master
 import java.util.List;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 
 public enum Aggregators implements Aggregator {
+<<<<<<< HEAD
    MAX( (numbers, config) -> accumulate(0d, (x,y) -> Math.max(x.doubleValue(),y.doubleValue()), numbers))
   ,MIN( (numbers, config) -> accumulate(0d, (x,y) -> Math.min(x.doubleValue(),y.doubleValue()), numbers))
   ,SUM( (numbers, config) -> accumulate(0d, (x,y) -> x.doubleValue() + y.doubleValue(), numbers))
   ,MEAN( (numbers, config) -> scale(SUM.aggregate(numbers, config), numbers, n -> true))
   ,POSITIVE_MEAN( (numbers, config) -> scale(SUM.aggregate(numbers, config), numbers, n -> n.doubleValue() > 0))
   ;
+=======
+   MAX( (numbers, config) -> accumulate(0d, (x,y) -> Math.max(x.doubleValue(),y.doubleValue()), numbers, config))
+  ,MIN( (numbers, config) -> accumulate(0d, (x,y) -> Math.min(x.doubleValue(),y.doubleValue()), numbers, config))
+  ,SUM( (numbers, config) -> accumulate(0d, (x,y) -> x.doubleValue() + y.doubleValue(), numbers, config))
+  ,MEAN( (numbers, config) -> scale(SUM.aggregate(numbers, config), numbers, n -> true))
+  ,POSITIVE_MEAN( (numbers, config) -> positiveMean(numbers, config))
+  ;
+  public static String NEGATIVE_VALUES_TRUMP_CONF = "negativeValuesTrump";
+>>>>>>> upstream/master
   Aggregator aggregator;
   Aggregators(Aggregator agg) {
     aggregator = agg;
@@ -38,12 +53,64 @@ public enum Aggregators implements Aggregator {
     return aggregator;
   }
 
+<<<<<<< HEAD
   private static double accumulate(double initial, BinaryOperator<Number> op, List<Number> list) {
     if(list.isEmpty()) {
       return 0d;
     }
     return list.stream()
                .reduce(initial, op)
+=======
+  private static double positiveMean(List<Number> list, Map<String, Object> config) {
+    Double ret = 0d;
+    int num = 0;
+    boolean negValuesTrump = doNegativeValuesTrump(config);
+    for(Number n : list) {
+      if(n.doubleValue() < 0) {
+        if(negValuesTrump) {
+          return Double.NEGATIVE_INFINITY;
+        }
+      }
+      else if(n.doubleValue() > 0) {
+        ret += n.doubleValue();
+        num++;
+      }
+    }
+    return num > 0?ret/num:0d;
+
+  }
+
+  private static boolean doNegativeValuesTrump(Map<String, Object> config) {
+    boolean negativeValuesTrump = true;
+    Object negValuesObj = config.get(NEGATIVE_VALUES_TRUMP_CONF);
+    if(negValuesObj != null)
+    {
+      Boolean b = ConversionUtils.convert(negValuesObj, Boolean.class);
+      if(b != null) {
+        negativeValuesTrump = b;
+      }
+    }
+    return negativeValuesTrump;
+  }
+  private static double accumulate(double initial, BinaryOperator<Number> op, List<Number> list, Map<String, Object> config) {
+    if(list.isEmpty()) {
+      return 0d;
+    }
+    boolean negativeValuesTrump = doNegativeValuesTrump(config);
+
+    BinaryOperator<Number> binOp = op;
+    if(negativeValuesTrump) {
+      binOp =(x,y) -> {
+        if (y.doubleValue() < 0 || x.doubleValue() < 0) {
+          return Double.NEGATIVE_INFINITY;
+        } else {
+          return op.apply(x, y);
+        }
+      };
+    }
+    return list.stream()
+               .reduce(initial, binOp)
+>>>>>>> upstream/master
                .doubleValue();
   }
 

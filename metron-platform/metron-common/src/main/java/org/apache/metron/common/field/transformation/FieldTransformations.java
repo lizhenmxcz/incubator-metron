@@ -23,6 +23,10 @@ import org.apache.metron.common.utils.ReflectionUtils;
 public enum FieldTransformations {
   IP_PROTOCOL(new IPProtocolTransformation())
   ,REMOVE(new RemoveTransformation())
+<<<<<<< HEAD
+=======
+  ,MTL(new MTLTransformation())
+>>>>>>> upstream/master
   ;
   FieldTransformation mapping;
   FieldTransformations(FieldTransformation mapping) {

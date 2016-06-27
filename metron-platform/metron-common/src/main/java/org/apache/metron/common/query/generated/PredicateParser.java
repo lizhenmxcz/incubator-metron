@@ -37,6 +37,7 @@ public class PredicateParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
+<<<<<<< HEAD
 		AND=1, OR=2, NOT=3, TRUE=4, FALSE=5, EQ=6, NEQ=7, COMMA=8, LBRACKET=9, 
 		RBRACKET=10, LPAREN=11, RPAREN=12, IN=13, NIN=14, EXISTS=15, IDENTIFIER=16, 
 		STRING_LITERAL=17, SEMI=18, COMMENT=19, WS=20;
@@ -56,6 +57,32 @@ public class PredicateParser extends Parser {
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "AND", "OR", "NOT", "TRUE", "FALSE", "EQ", "NEQ", "COMMA", "LBRACKET", 
 		"RBRACKET", "LPAREN", "RPAREN", "IN", "NIN", "EXISTS", "IDENTIFIER", "STRING_LITERAL", 
+=======
+		AND=1, OR=2, NOT=3, TRUE=4, FALSE=5, EQ=6, NEQ=7, LT=8, LTE=9, GT=10, 
+		GTE=11, COMMA=12, LBRACKET=13, RBRACKET=14, LPAREN=15, RPAREN=16, IN=17, 
+		NIN=18, EXISTS=19, INT_LITERAL=20, DOUBLE_LITERAL=21, IDENTIFIER=22, STRING_LITERAL=23, 
+		SEMI=24, COMMENT=25, WS=26;
+	public static final int
+		RULE_single_rule = 0, RULE_logical_expr = 1, RULE_comparison_expr = 2, 
+		RULE_logical_entity = 3, RULE_list_entity = 4, RULE_func_args = 5, RULE_op_list = 6, 
+		RULE_t_func = 7, RULE_identifier_operand = 8, RULE_comparison_operand = 9, 
+		RULE_comp_operator = 10;
+	public static final String[] ruleNames = {
+		"single_rule", "logical_expr", "comparison_expr", "logical_entity", "list_entity", 
+		"func_args", "op_list", "t_func", "identifier_operand", "comparison_operand", 
+		"comp_operator"
+	};
+
+	private static final String[] _LITERAL_NAMES = {
+		null, null, null, null, null, null, "'=='", "'!='", "'<'", "'<='", "'>'", 
+		"'>='", "','", "'['", "']'", "'('", "')'", "'in'", "'not in'", "'exists'", 
+		null, null, null, null, "';'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "AND", "OR", "NOT", "TRUE", "FALSE", "EQ", "NEQ", "LT", "LTE", "GT", 
+		"GTE", "COMMA", "LBRACKET", "RBRACKET", "LPAREN", "RPAREN", "IN", "NIN", 
+		"EXISTS", "INT_LITERAL", "DOUBLE_LITERAL", "IDENTIFIER", "STRING_LITERAL", 
+>>>>>>> upstream/master
 		"SEMI", "COMMENT", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
@@ -132,9 +159,15 @@ public class PredicateParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+<<<<<<< HEAD
 			setState(20);
 			logical_expr(0);
 			setState(21);
+=======
+			setState(22);
+			logical_expr(0);
+			setState(23);
+>>>>>>> upstream/master
 			match(EOF);
 			}
 		}
@@ -273,7 +306,11 @@ public class PredicateParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
+<<<<<<< HEAD
 			setState(35);
+=======
+			setState(37);
+>>>>>>> upstream/master
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
 				{
@@ -281,7 +318,11 @@ public class PredicateParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
+<<<<<<< HEAD
 				setState(24);
+=======
+				setState(26);
+>>>>>>> upstream/master
 				comparison_expr();
 				}
 				break;
@@ -290,11 +331,19 @@ public class PredicateParser extends Parser {
 				_localctx = new LogicalExpressionInParenContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
+<<<<<<< HEAD
 				setState(25);
 				match(LPAREN);
 				setState(26);
 				logical_expr(0);
 				setState(27);
+=======
+				setState(27);
+				match(LPAREN);
+				setState(28);
+				logical_expr(0);
+				setState(29);
+>>>>>>> upstream/master
 				match(RPAREN);
 				}
 				break;
@@ -303,6 +352,7 @@ public class PredicateParser extends Parser {
 				_localctx = new NotFuncContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
+<<<<<<< HEAD
 				setState(29);
 				match(NOT);
 				setState(30);
@@ -310,6 +360,15 @@ public class PredicateParser extends Parser {
 				setState(31);
 				logical_expr(0);
 				setState(32);
+=======
+				setState(31);
+				match(NOT);
+				setState(32);
+				match(LPAREN);
+				setState(33);
+				logical_expr(0);
+				setState(34);
+>>>>>>> upstream/master
 				match(RPAREN);
 				}
 				break;
@@ -318,13 +377,21 @@ public class PredicateParser extends Parser {
 				_localctx = new LogicalEntityContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
+<<<<<<< HEAD
 				setState(34);
+=======
+				setState(36);
+>>>>>>> upstream/master
 				logical_entity();
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
+<<<<<<< HEAD
 			setState(45);
+=======
+			setState(47);
+>>>>>>> upstream/master
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -332,17 +399,29 @@ public class PredicateParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
+<<<<<<< HEAD
 					setState(43);
+=======
+					setState(45);
+>>>>>>> upstream/master
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
 						_localctx = new LogicalExpressionAndContext(new Logical_exprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_logical_expr);
+<<<<<<< HEAD
 						setState(37);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(38);
 						match(AND);
 						setState(39);
+=======
+						setState(39);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(40);
+						match(AND);
+						setState(41);
+>>>>>>> upstream/master
 						logical_expr(7);
 						}
 						break;
@@ -350,18 +429,30 @@ public class PredicateParser extends Parser {
 						{
 						_localctx = new LogicalExpressionOrContext(new Logical_exprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_logical_expr);
+<<<<<<< HEAD
 						setState(40);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(41);
 						match(OR);
 						setState(42);
+=======
+						setState(42);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(43);
+						match(OR);
+						setState(44);
+>>>>>>> upstream/master
 						logical_expr(6);
 						}
 						break;
 					}
 					} 
 				}
+<<<<<<< HEAD
 				setState(47);
+=======
+				setState(49);
+>>>>>>> upstream/master
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -406,6 +497,7 @@ public class PredicateParser extends Parser {
 		}
 	}
 	public static class InExpressionContext extends Comparison_exprContext {
+<<<<<<< HEAD
 		public Identifier_operandContext identifier_operand() {
 			return getRuleContext(Identifier_operandContext.class,0);
 		}
@@ -413,6 +505,15 @@ public class PredicateParser extends Parser {
 		public List_entityContext list_entity() {
 			return getRuleContext(List_entityContext.class,0);
 		}
+=======
+		public List<Identifier_operandContext> identifier_operand() {
+			return getRuleContexts(Identifier_operandContext.class);
+		}
+		public Identifier_operandContext identifier_operand(int i) {
+			return getRuleContext(Identifier_operandContext.class,i);
+		}
+		public TerminalNode IN() { return getToken(PredicateParser.IN, 0); }
+>>>>>>> upstream/master
 		public InExpressionContext(Comparison_exprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -444,6 +545,7 @@ public class PredicateParser extends Parser {
 		}
 	}
 	public static class NInExpressionContext extends Comparison_exprContext {
+<<<<<<< HEAD
 		public Identifier_operandContext identifier_operand() {
 			return getRuleContext(Identifier_operandContext.class,0);
 		}
@@ -451,6 +553,15 @@ public class PredicateParser extends Parser {
 		public List_entityContext list_entity() {
 			return getRuleContext(List_entityContext.class,0);
 		}
+=======
+		public List<Identifier_operandContext> identifier_operand() {
+			return getRuleContexts(Identifier_operandContext.class);
+		}
+		public Identifier_operandContext identifier_operand(int i) {
+			return getRuleContext(Identifier_operandContext.class,i);
+		}
+		public TerminalNode NIN() { return getToken(PredicateParser.NIN, 0); }
+>>>>>>> upstream/master
 		public NInExpressionContext(Comparison_exprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -466,17 +577,29 @@ public class PredicateParser extends Parser {
 		Comparison_exprContext _localctx = new Comparison_exprContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_comparison_expr);
 		try {
+<<<<<<< HEAD
 			setState(64);
+=======
+			setState(66);
+>>>>>>> upstream/master
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				_localctx = new ComparisonExpressionWithOperatorContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
+<<<<<<< HEAD
 				setState(48);
 				comparison_operand();
 				setState(49);
 				comp_operator();
 				setState(50);
+=======
+				setState(50);
+				comparison_operand();
+				setState(51);
+				comp_operator();
+				setState(52);
+>>>>>>> upstream/master
 				comparison_operand();
 				}
 				break;
@@ -484,35 +607,61 @@ public class PredicateParser extends Parser {
 				_localctx = new InExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
+<<<<<<< HEAD
 				setState(52);
 				identifier_operand();
 				setState(53);
 				match(IN);
 				setState(54);
 				list_entity();
+=======
+				setState(54);
+				identifier_operand();
+				setState(55);
+				match(IN);
+				setState(56);
+				identifier_operand();
+>>>>>>> upstream/master
 				}
 				break;
 			case 3:
 				_localctx = new NInExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
+<<<<<<< HEAD
 				setState(56);
 				identifier_operand();
 				setState(57);
 				match(NIN);
 				setState(58);
 				list_entity();
+=======
+				setState(58);
+				identifier_operand();
+				setState(59);
+				match(NIN);
+				setState(60);
+				identifier_operand();
+>>>>>>> upstream/master
 				}
 				break;
 			case 4:
 				_localctx = new ComparisonExpressionParensContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
+<<<<<<< HEAD
 				setState(60);
 				match(LPAREN);
 				setState(61);
 				comparison_expr();
 				setState(62);
+=======
+				setState(62);
+				match(LPAREN);
+				setState(63);
+				comparison_expr();
+				setState(64);
+>>>>>>> upstream/master
 				match(RPAREN);
 				}
 				break;
@@ -591,14 +740,22 @@ public class PredicateParser extends Parser {
 		enterRule(_localctx, 6, RULE_logical_entity);
 		int _la;
 		try {
+<<<<<<< HEAD
 			setState(76);
+=======
+			setState(78);
+>>>>>>> upstream/master
 			switch (_input.LA(1)) {
 			case TRUE:
 			case FALSE:
 				_localctx = new LogicalConstContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
+<<<<<<< HEAD
 				setState(66);
+=======
+				setState(68);
+>>>>>>> upstream/master
 				_la = _input.LA(1);
 				if ( !(_la==TRUE || _la==FALSE) ) {
 				_errHandler.recoverInline(this);
@@ -611,6 +768,7 @@ public class PredicateParser extends Parser {
 				_localctx = new ExistsFuncContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
+<<<<<<< HEAD
 				setState(67);
 				match(EXISTS);
 				setState(68);
@@ -618,6 +776,15 @@ public class PredicateParser extends Parser {
 				setState(69);
 				match(IDENTIFIER);
 				setState(70);
+=======
+				setState(69);
+				match(EXISTS);
+				setState(70);
+				match(LPAREN);
+				setState(71);
+				match(IDENTIFIER);
+				setState(72);
+>>>>>>> upstream/master
 				match(RPAREN);
 				}
 				break;
@@ -625,6 +792,7 @@ public class PredicateParser extends Parser {
 				_localctx = new LogicalFuncContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
+<<<<<<< HEAD
 				setState(71);
 				match(IDENTIFIER);
 				setState(72);
@@ -632,6 +800,15 @@ public class PredicateParser extends Parser {
 				setState(73);
 				func_args();
 				setState(74);
+=======
+				setState(73);
+				match(IDENTIFIER);
+				setState(74);
+				match(LPAREN);
+				setState(75);
+				func_args();
+				setState(76);
+>>>>>>> upstream/master
 				match(RPAREN);
 				}
 				break;
@@ -676,11 +853,19 @@ public class PredicateParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+<<<<<<< HEAD
 			setState(78);
 			match(LBRACKET);
 			setState(79);
 			op_list(0);
 			setState(80);
+=======
+			setState(80);
+			match(LBRACKET);
+			setState(81);
+			op_list(0);
+			setState(82);
+>>>>>>> upstream/master
 			match(RBRACKET);
 			}
 		}
@@ -719,7 +904,11 @@ public class PredicateParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+<<<<<<< HEAD
 			setState(82);
+=======
+			setState(84);
+>>>>>>> upstream/master
 			op_list(0);
 			}
 		}
@@ -772,11 +961,19 @@ public class PredicateParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+<<<<<<< HEAD
 			setState(85);
 			identifier_operand();
 			}
 			_ctx.stop = _input.LT(-1);
 			setState(92);
+=======
+			setState(87);
+			identifier_operand();
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(94);
+>>>>>>> upstream/master
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -787,16 +984,28 @@ public class PredicateParser extends Parser {
 					{
 					_localctx = new Op_listContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_op_list);
+<<<<<<< HEAD
 					setState(87);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(88);
 					match(COMMA);
 					setState(89);
+=======
+					setState(89);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+					setState(90);
+					match(COMMA);
+					setState(91);
+>>>>>>> upstream/master
 					identifier_operand();
 					}
 					} 
 				}
+<<<<<<< HEAD
 				setState(94);
+=======
+				setState(96);
+>>>>>>> upstream/master
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			}
@@ -813,6 +1022,66 @@ public class PredicateParser extends Parser {
 		return _localctx;
 	}
 
+<<<<<<< HEAD
+=======
+	public static class T_funcContext extends ParserRuleContext {
+		public T_funcContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_t_func; }
+	 
+		public T_funcContext() { }
+		public void copyFrom(T_funcContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class TransformationFuncContext extends T_funcContext {
+		public TerminalNode IDENTIFIER() { return getToken(PredicateParser.IDENTIFIER, 0); }
+		public TerminalNode LPAREN() { return getToken(PredicateParser.LPAREN, 0); }
+		public Func_argsContext func_args() {
+			return getRuleContext(Func_argsContext.class,0);
+		}
+		public TerminalNode RPAREN() { return getToken(PredicateParser.RPAREN, 0); }
+		public TransformationFuncContext(T_funcContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).enterTransformationFunc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitTransformationFunc(this);
+		}
+	}
+
+	public final T_funcContext t_func() throws RecognitionException {
+		T_funcContext _localctx = new T_funcContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_t_func);
+		try {
+			_localctx = new TransformationFuncContext(_localctx);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(97);
+			match(IDENTIFIER);
+			setState(98);
+			match(LPAREN);
+			setState(99);
+			func_args();
+			setState(100);
+			match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+>>>>>>> upstream/master
 	public static class Identifier_operandContext extends ParserRuleContext {
 		public Identifier_operandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -848,6 +1117,7 @@ public class PredicateParser extends Parser {
 			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitStringLiteral(this);
 		}
 	}
+<<<<<<< HEAD
 	public static class StringFuncContext extends Identifier_operandContext {
 		public TerminalNode IDENTIFIER() { return getToken(PredicateParser.IDENTIFIER, 0); }
 		public TerminalNode LPAREN() { return getToken(PredicateParser.LPAREN, 0); }
@@ -863,20 +1133,82 @@ public class PredicateParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitStringFunc(this);
+=======
+	public static class ListContext extends Identifier_operandContext {
+		public List_entityContext list_entity() {
+			return getRuleContext(List_entityContext.class,0);
+		}
+		public ListContext(Identifier_operandContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).enterList(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitList(this);
+		}
+	}
+	public static class DoubleLiteralContext extends Identifier_operandContext {
+		public TerminalNode DOUBLE_LITERAL() { return getToken(PredicateParser.DOUBLE_LITERAL, 0); }
+		public DoubleLiteralContext(Identifier_operandContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).enterDoubleLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitDoubleLiteral(this);
+		}
+	}
+	public static class Id_tfuncContext extends Identifier_operandContext {
+		public T_funcContext t_func() {
+			return getRuleContext(T_funcContext.class,0);
+		}
+		public Id_tfuncContext(Identifier_operandContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).enterId_tfunc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitId_tfunc(this);
+		}
+	}
+	public static class IntegerLiteralContext extends Identifier_operandContext {
+		public TerminalNode INT_LITERAL() { return getToken(PredicateParser.INT_LITERAL, 0); }
+		public IntegerLiteralContext(Identifier_operandContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).enterIntegerLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PredicateListener ) ((PredicateListener)listener).exitIntegerLiteral(this);
+>>>>>>> upstream/master
 		}
 	}
 
 	public final Identifier_operandContext identifier_operand() throws RecognitionException {
 		Identifier_operandContext _localctx = new Identifier_operandContext(_ctx, getState());
+<<<<<<< HEAD
 		enterRule(_localctx, 14, RULE_identifier_operand);
 		try {
 			setState(102);
+=======
+		enterRule(_localctx, 16, RULE_identifier_operand);
+		try {
+			setState(108);
+>>>>>>> upstream/master
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				_localctx = new StringLiteralContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
+<<<<<<< HEAD
 				setState(95);
+=======
+				setState(102);
+>>>>>>> upstream/master
 				match(STRING_LITERAL);
 				}
 				break;
@@ -884,11 +1216,16 @@ public class PredicateParser extends Parser {
 				_localctx = new LogicalVariableContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
+<<<<<<< HEAD
 				setState(96);
+=======
+				setState(103);
+>>>>>>> upstream/master
 				match(IDENTIFIER);
 				}
 				break;
 			case 3:
+<<<<<<< HEAD
 				_localctx = new StringFuncContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
@@ -900,6 +1237,37 @@ public class PredicateParser extends Parser {
 				func_args();
 				setState(100);
 				match(RPAREN);
+=======
+				_localctx = new Id_tfuncContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(104);
+				t_func();
+				}
+				break;
+			case 4:
+				_localctx = new IntegerLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(105);
+				match(INT_LITERAL);
+				}
+				break;
+			case 5:
+				_localctx = new DoubleLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(106);
+				match(DOUBLE_LITERAL);
+				}
+				break;
+			case 6:
+				_localctx = new ListContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(107);
+				list_entity();
+>>>>>>> upstream/master
 				}
 				break;
 			}
@@ -957,15 +1325,25 @@ public class PredicateParser extends Parser {
 
 	public final Comparison_operandContext comparison_operand() throws RecognitionException {
 		Comparison_operandContext _localctx = new Comparison_operandContext(_ctx, getState());
+<<<<<<< HEAD
 		enterRule(_localctx, 16, RULE_comparison_operand);
 		try {
 			setState(106);
+=======
+		enterRule(_localctx, 18, RULE_comparison_operand);
+		try {
+			setState(112);
+>>>>>>> upstream/master
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				_localctx = new IdentifierOperandContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
+<<<<<<< HEAD
 				setState(104);
+=======
+				setState(110);
+>>>>>>> upstream/master
 				identifier_operand();
 				}
 				break;
@@ -973,7 +1351,11 @@ public class PredicateParser extends Parser {
 				_localctx = new LogicalConstComparisonContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
+<<<<<<< HEAD
 				setState(105);
+=======
+				setState(111);
+>>>>>>> upstream/master
 				logical_entity();
 				}
 				break;
@@ -1004,6 +1386,13 @@ public class PredicateParser extends Parser {
 	public static class ComparisonOpContext extends Comp_operatorContext {
 		public TerminalNode EQ() { return getToken(PredicateParser.EQ, 0); }
 		public TerminalNode NEQ() { return getToken(PredicateParser.NEQ, 0); }
+<<<<<<< HEAD
+=======
+		public TerminalNode LT() { return getToken(PredicateParser.LT, 0); }
+		public TerminalNode LTE() { return getToken(PredicateParser.LTE, 0); }
+		public TerminalNode GT() { return getToken(PredicateParser.GT, 0); }
+		public TerminalNode GTE() { return getToken(PredicateParser.GTE, 0); }
+>>>>>>> upstream/master
 		public ComparisonOpContext(Comp_operatorContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1017,15 +1406,25 @@ public class PredicateParser extends Parser {
 
 	public final Comp_operatorContext comp_operator() throws RecognitionException {
 		Comp_operatorContext _localctx = new Comp_operatorContext(_ctx, getState());
+<<<<<<< HEAD
 		enterRule(_localctx, 18, RULE_comp_operator);
+=======
+		enterRule(_localctx, 20, RULE_comp_operator);
+>>>>>>> upstream/master
 		int _la;
 		try {
 			_localctx = new ComparisonOpContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
+<<<<<<< HEAD
 			setState(108);
 			_la = _input.LA(1);
 			if ( !(_la==EQ || _la==NEQ) ) {
+=======
+			setState(114);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQ) | (1L << NEQ) | (1L << LT) | (1L << LTE) | (1L << GT) | (1L << GTE))) != 0)) ) {
+>>>>>>> upstream/master
 			_errHandler.recoverInline(this);
 			} else {
 				consume();
@@ -1070,6 +1469,7 @@ public class PredicateParser extends Parser {
 	}
 
 	public static final String _serializedATN =
+<<<<<<< HEAD
 		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\26q\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
 		"\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3&\n\3\3"+
@@ -1097,6 +1497,37 @@ public class PredicateParser extends Parser {
 		"bi\7\22\2\2cd\7\22\2\2de\7\r\2\2ef\5\f\7\2fg\7\16\2\2gi\3\2\2\2ha\3\2"+
 		"\2\2hb\3\2\2\2hc\3\2\2\2i\21\3\2\2\2jm\5\20\t\2km\5\b\5\2lj\3\2\2\2lk"+
 		"\3\2\2\2m\23\3\2\2\2no\t\3\2\2o\25\3\2\2\2\n%-/BN^hl";
+=======
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\34w\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
+		"(\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\60\n\3\f\3\16\3\63\13\3\3\4\3\4\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4E\n\4\3\5\3\5"+
+		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5Q\n\5\3\6\3\6\3\6\3\6\3\7\3\7\3\b"+
+		"\3\b\3\b\3\b\3\b\3\b\7\b_\n\b\f\b\16\bb\13\b\3\t\3\t\3\t\3\t\3\t\3\n\3"+
+		"\n\3\n\3\n\3\n\3\n\5\no\n\n\3\13\3\13\5\13s\n\13\3\f\3\f\3\f\2\4\4\16"+
+		"\r\2\4\6\b\n\f\16\20\22\24\26\2\4\3\2\6\7\3\2\b\r|\2\30\3\2\2\2\4\'\3"+
+		"\2\2\2\6D\3\2\2\2\bP\3\2\2\2\nR\3\2\2\2\fV\3\2\2\2\16X\3\2\2\2\20c\3\2"+
+		"\2\2\22n\3\2\2\2\24r\3\2\2\2\26t\3\2\2\2\30\31\5\4\3\2\31\32\7\2\2\3\32"+
+		"\3\3\2\2\2\33\34\b\3\1\2\34(\5\6\4\2\35\36\7\21\2\2\36\37\5\4\3\2\37 "+
+		"\7\22\2\2 (\3\2\2\2!\"\7\5\2\2\"#\7\21\2\2#$\5\4\3\2$%\7\22\2\2%(\3\2"+
+		"\2\2&(\5\b\5\2\'\33\3\2\2\2\'\35\3\2\2\2\'!\3\2\2\2\'&\3\2\2\2(\61\3\2"+
+		"\2\2)*\f\b\2\2*+\7\3\2\2+\60\5\4\3\t,-\f\7\2\2-.\7\4\2\2.\60\5\4\3\b/"+
+		")\3\2\2\2/,\3\2\2\2\60\63\3\2\2\2\61/\3\2\2\2\61\62\3\2\2\2\62\5\3\2\2"+
+		"\2\63\61\3\2\2\2\64\65\5\24\13\2\65\66\5\26\f\2\66\67\5\24\13\2\67E\3"+
+		"\2\2\289\5\22\n\29:\7\23\2\2:;\5\22\n\2;E\3\2\2\2<=\5\22\n\2=>\7\24\2"+
+		"\2>?\5\22\n\2?E\3\2\2\2@A\7\21\2\2AB\5\6\4\2BC\7\22\2\2CE\3\2\2\2D\64"+
+		"\3\2\2\2D8\3\2\2\2D<\3\2\2\2D@\3\2\2\2E\7\3\2\2\2FQ\t\2\2\2GH\7\25\2\2"+
+		"HI\7\21\2\2IJ\7\30\2\2JQ\7\22\2\2KL\7\30\2\2LM\7\21\2\2MN\5\f\7\2NO\7"+
+		"\22\2\2OQ\3\2\2\2PF\3\2\2\2PG\3\2\2\2PK\3\2\2\2Q\t\3\2\2\2RS\7\17\2\2"+
+		"ST\5\16\b\2TU\7\20\2\2U\13\3\2\2\2VW\5\16\b\2W\r\3\2\2\2XY\b\b\1\2YZ\5"+
+		"\22\n\2Z`\3\2\2\2[\\\f\3\2\2\\]\7\16\2\2]_\5\22\n\2^[\3\2\2\2_b\3\2\2"+
+		"\2`^\3\2\2\2`a\3\2\2\2a\17\3\2\2\2b`\3\2\2\2cd\7\30\2\2de\7\21\2\2ef\5"+
+		"\f\7\2fg\7\22\2\2g\21\3\2\2\2ho\7\31\2\2io\7\30\2\2jo\5\20\t\2ko\7\26"+
+		"\2\2lo\7\27\2\2mo\5\n\6\2nh\3\2\2\2ni\3\2\2\2nj\3\2\2\2nk\3\2\2\2nl\3"+
+		"\2\2\2nm\3\2\2\2o\23\3\2\2\2ps\5\22\n\2qs\5\b\5\2rp\3\2\2\2rq\3\2\2\2"+
+		"s\25\3\2\2\2tu\t\3\2\2u\27\3\2\2\2\n\'/\61DP`nr";
+>>>>>>> upstream/master
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -25,14 +25,22 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+<<<<<<< HEAD
 public abstract class SimpleValidation implements FieldValidation, Predicate<List<String>> {
+=======
+public abstract class SimpleValidation implements FieldValidation, Predicate<List<Object>> {
+>>>>>>> upstream/master
   @Override
   public boolean isValid( Map<String, Object> input
                         , Map<String, Object> validationConfig
                         , Map<String, Object> globalConfig
                         )
   {
+<<<<<<< HEAD
     Predicate<String> predicate = getPredicate();
+=======
+    Predicate<Object> predicate = getPredicate();
+>>>>>>> upstream/master
     if(isNonExistentOk()) {
       for (Object o : input.values()) {
         if (o != null && !predicate.test(o.toString())) {
@@ -51,9 +59,15 @@ public abstract class SimpleValidation implements FieldValidation, Predicate<Lis
   }
 
   @Override
+<<<<<<< HEAD
   public boolean test(List<String> input) {
     Predicate<String> predicate = getPredicate();
     for(String o : input) {
+=======
+  public boolean test(List<Object> input) {
+    Predicate<Object> predicate = getPredicate();
+    for(Object o : input) {
+>>>>>>> upstream/master
       if(o == null || !predicate.test(o)){
         return false;
       }
@@ -66,7 +80,11 @@ public abstract class SimpleValidation implements FieldValidation, Predicate<Lis
 
   }
 
+<<<<<<< HEAD
   public abstract Predicate<String> getPredicate();
+=======
+  public abstract Predicate<Object> getPredicate();
+>>>>>>> upstream/master
   protected boolean isNonExistentOk() {
     return true;
   }

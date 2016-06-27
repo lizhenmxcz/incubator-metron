@@ -25,12 +25,20 @@ import org.apache.metron.common.configuration.Configurations;
 import org.apache.metron.common.configuration.writer.WriterConfiguration;
 import org.apache.metron.common.interfaces.MessageWriter;
 import org.apache.metron.common.utils.ConversionUtils;
+<<<<<<< HEAD
+=======
+import org.apache.metron.common.utils.StringUtils;
+>>>>>>> upstream/master
 import org.apache.metron.common.writer.AbstractWriter;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+>>>>>>> upstream/master
 
 public class KafkaWriter extends AbstractWriter implements MessageWriter<JSONObject>, Serializable {
   public enum Configurations {
@@ -38,17 +46,30 @@ public class KafkaWriter extends AbstractWriter implements MessageWriter<JSONObj
     ,KEY_SERIALIZER("kafka.keySerializer")
     ,VALUE_SERIALIZER("kafka.valueSerializer")
     ,REQUIRED_ACKS("kafka.requiredAcks")
+<<<<<<< HEAD
     ,TOPIC("kafka.topic");
+=======
+    ,TOPIC("kafka.topic")
+    ,PRODUCER_CONFIGS("kafka.producerConfigs");
+>>>>>>> upstream/master
     ;
     String key;
     Configurations(String key) {
       this.key = key;
     }
+<<<<<<< HEAD
     public Object get(Map<String, Object> config) {
       return config.get(key);
     }
     public <T> T getAndConvert(Map<String, Object> config, Class<T> clazz) {
       Object o = get(config);
+=======
+    public Object get(Optional<String> configPrefix, Map<String, Object> config) {
+      return config.get(StringUtils.join(".", configPrefix, Optional.of(key)));
+    }
+    public <T> T getAndConvert(Optional<String> configPrefix, Map<String, Object> config, Class<T> clazz) {
+      Object o = get(configPrefix, config);
+>>>>>>> upstream/master
       if(o != null) {
         return ConversionUtils.convert(o, clazz);
       }
@@ -61,11 +82,19 @@ public class KafkaWriter extends AbstractWriter implements MessageWriter<JSONObj
   private int requiredAcks = 1;
   private String kafkaTopic = Constants.ENRICHMENT_TOPIC;
   private KafkaProducer kafkaProducer;
+<<<<<<< HEAD
 
   public KafkaWriter() {}
 
 
 
+=======
+  private String configPrefix = null;
+  private Map<String, Object> producerConfigs = new HashMap<>();
+
+  public KafkaWriter() {}
+
+>>>>>>> upstream/master
   public KafkaWriter(String brokerUrl) {
     this.brokerUrl = brokerUrl;
   }
@@ -89,6 +118,7 @@ public class KafkaWriter extends AbstractWriter implements MessageWriter<JSONObj
     this.kafkaTopic= topic;
     return this;
   }
+<<<<<<< HEAD
   @Override
   public void configure(String sensorName, WriterConfiguration configuration) {
     Map<String, Object> configMap = configuration.getSensorConfig(sensorName);
@@ -116,12 +146,69 @@ public class KafkaWriter extends AbstractWriter implements MessageWriter<JSONObj
 
   @Override
   public void init() {
+=======
+  public KafkaWriter withConfigPrefix(String prefix) {
+    this.configPrefix = prefix;
+    return this;
+  }
+
+  public KafkaWriter withProducerConfigs(Map<String, Object> extraConfigs) {
+    this.producerConfigs = extraConfigs;
+    return this;
+  }
+
+  public Optional<String> getConfigPrefix() {
+    return Optional.ofNullable(configPrefix);
+  }
+
+  @Override
+  public void configure(String sensorName, WriterConfiguration configuration) {
+    Map<String, Object> configMap = configuration.getSensorConfig(sensorName);
+    String brokerUrl = Configurations.BROKER.getAndConvert(getConfigPrefix(), configMap, String.class);
+    if(brokerUrl != null) {
+      this.brokerUrl = brokerUrl;
+    }
+    String keySerializer = Configurations.KEY_SERIALIZER.getAndConvert(getConfigPrefix(), configMap, String.class);
+    if(keySerializer != null) {
+      withKeySerializer(keySerializer);
+    }
+    String valueSerializer = Configurations.VALUE_SERIALIZER.getAndConvert(getConfigPrefix(), configMap, String.class);
+    if(valueSerializer != null) {
+      withValueSerializer(keySerializer);
+    }
+    Integer requiredAcks = Configurations.REQUIRED_ACKS.getAndConvert(getConfigPrefix(), configMap, Integer.class);
+    if(requiredAcks!= null) {
+      withRequiredAcks(requiredAcks);
+    }
+    String topic = Configurations.TOPIC.getAndConvert(getConfigPrefix(), configMap, String.class);
+    if(topic != null) {
+      withTopic(topic);
+    }
+    Map<String, Object> producerConfigs = (Map)Configurations.PRODUCER_CONFIGS.get(getConfigPrefix(), configMap);
+    if(producerConfigs != null) {
+      withProducerConfigs(producerConfigs);
+    }
+  }
+
+  public Map<String, Object> createProducerConfigs() {
+>>>>>>> upstream/master
     Map<String, Object> producerConfig = new HashMap<>();
     producerConfig.put("bootstrap.servers", brokerUrl);
     producerConfig.put("key.serializer", keySerializer);
     producerConfig.put("value.serializer", valueSerializer);
     producerConfig.put("request.required.acks", requiredAcks);
+<<<<<<< HEAD
     this.kafkaProducer = new KafkaProducer<>(producerConfig);
+=======
+    producerConfig.putAll(producerConfigs == null?new HashMap<>():producerConfigs);
+    return producerConfig;
+  }
+
+  @Override
+  public void init() {
+
+    this.kafkaProducer = new KafkaProducer<>(createProducerConfigs());
+>>>>>>> upstream/master
   }
 
   @SuppressWarnings("unchecked")

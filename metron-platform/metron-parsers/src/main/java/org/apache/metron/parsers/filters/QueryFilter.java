@@ -18,6 +18,7 @@
 
 package org.apache.metron.parsers.filters;
 
+<<<<<<< HEAD
 import com.google.common.collect.ImmutableList;
 import org.apache.metron.common.query.MapVariableResolver;
 import org.apache.metron.common.query.PredicateProcessor;
@@ -27,6 +28,14 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+=======
+import org.apache.metron.common.dsl.MapVariableResolver;
+import org.apache.metron.common.query.PredicateProcessor;
+import org.apache.metron.common.dsl.VariableResolver;
+import org.apache.metron.parsers.interfaces.MessageFilter;
+import org.json.simple.JSONObject;
+
+>>>>>>> upstream/master
 import java.util.Map;
 
 public class QueryFilter implements MessageFilter<JSONObject> {

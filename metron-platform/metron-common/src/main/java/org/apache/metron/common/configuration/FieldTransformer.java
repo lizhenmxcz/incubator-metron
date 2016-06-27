@@ -34,7 +34,11 @@ public class FieldTransformer implements Serializable {
   private List<String> output;
   private FieldTransformation transformation;
   private Map<String, Object> config = new HashMap<>();
+<<<<<<< HEAD
 
+=======
+  private boolean initialized = false;
+>>>>>>> upstream/master
   public FieldTransformer() {
   }
 
@@ -81,6 +85,7 @@ public class FieldTransformer implements Serializable {
   }
 
   public void initAndValidate() {
+<<<<<<< HEAD
     if(getTransformation() == null) {
       throw new IllegalStateException("Mapping cannot be null.");
     }
@@ -92,6 +97,21 @@ public class FieldTransformer implements Serializable {
       else {
         output = input;
       }
+=======
+    if(!initialized) {
+      if (getTransformation() == null) {
+        throw new IllegalStateException("Mapping cannot be null.");
+      }
+
+      if (output == null || output.isEmpty()) {
+        if (input == null || input.isEmpty()) {
+          throw new IllegalStateException("You must specify an input field if you want to leave the output fields empty");
+        } else {
+          output = input;
+        }
+      }
+      initialized = true;
+>>>>>>> upstream/master
     }
   }
 

@@ -84,9 +84,16 @@ public class CSVParser extends BasicParser {
       else {
         return Collections.emptyList();
       }
+<<<<<<< HEAD
     } catch (Exception e) {
       LOG.error("Unable to parse " + new String(rawMessage), e);
       return Collections.emptyList();
+=======
+    } catch (Throwable e) {
+      String message = "Unable to parse " + new String(rawMessage) + ": " + e.getMessage();
+      LOG.error(message, e);
+      throw new IllegalStateException(message, e);
+>>>>>>> upstream/master
     }
   }
 }

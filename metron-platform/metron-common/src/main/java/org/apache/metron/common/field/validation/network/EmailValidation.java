@@ -26,7 +26,12 @@ import java.util.function.Predicate;
 
 public class EmailValidation extends SimpleValidation{
   @Override
+<<<<<<< HEAD
   public Predicate<String> getPredicate() {
     return email -> EmailValidator.getInstance().isValid(email);
+=======
+  public Predicate<Object> getPredicate() {
+    return email -> EmailValidator.getInstance().isValid(email == null?null:email.toString());
+>>>>>>> upstream/master
   }
 }

@@ -16,4 +16,7 @@
 #
 ---
 - include: load_templates.yml
+<<<<<<< HEAD
   run_once: true
+=======
+>>>>>>> upstream/master

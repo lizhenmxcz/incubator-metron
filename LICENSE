@@ -201,6 +201,7 @@ Apache License
    limitations under the License.
 
 ------------------------------------------------------------------------------------
+<<<<<<< HEAD
 For the Fontawesome fonts under metron-ui/lib/public/font/ (from https://github.com/FortAwesome/Font-Awesome#license)
 
 Copyright (c) <dates>, <Copyright Holder> (<URL|email>),
@@ -302,6 +303,8 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
 ------------------------------------------------------------------------------------
+=======
+>>>>>>> upstream/master
 
 For the effective_tld_names.dat reference data located at:
 metron-platform/metron-common/src/test/resources/effective_tld_names.dat
@@ -682,6 +685,7 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
 
+<<<<<<< HEAD
 
 ------------------------------------------------------------------------------------
 For showdown.js at metron-ui/lib/public/app/panels/pcap/lib/showdown.js
@@ -767,6 +771,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+=======
+>>>>>>> upstream/master
 -----------------------------------------------------------------------
 This bundles the following released to the Public Domain:
 
@@ -774,6 +780,7 @@ This bundles the following released to the Public Domain:
 
 -----------------------------------------------------------------------
 
+<<<<<<< HEAD
 
 This product bundles normalize.css which is available under a "MIT" license. For details, see metron-ui/lib/public/vendor/LICENSE.normalize
 This product bundles filesaver 2013-01-23, which is available under a "MIT" license. For details, see metron-ui/lib/public/vendor/LICENSE.filesaver
@@ -796,3 +803,5 @@ This product bundles blob 2013-06-20, which is available under a "MIT" license. 
 This product bundles numeral 1.5.2, which is available under a "MIT" license. For details, see metron-ui/lib/public/vendor/LICENSE.numeral
 This product bundles peg 0.8.0, which is available under a "MIT" license. For details, see metron-ui/lib/public/vendor/LICENSE.peg
 This product bundles chromath 0.0.5, which is available under a "MIT" license. For details, see metron-ui/lib/public/vendor/LICENSE.chromath
+=======
+>>>>>>> upstream/master

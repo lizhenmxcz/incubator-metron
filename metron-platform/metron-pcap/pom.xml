@@ -18,7 +18,11 @@
     <parent>
         <groupId>org.apache.metron</groupId>
         <artifactId>metron-platform</artifactId>
+<<<<<<< HEAD
         <version>0.1BETA</version>
+=======
+        <version>0.2.0BETA</version>
+>>>>>>> upstream/master
     </parent>
     <artifactId>metron-pcap</artifactId>
     <description>Metron Pcap</description>
@@ -117,7 +121,11 @@
         <dependency>
             <groupId>org.apache.metron</groupId>
             <artifactId>metron-common</artifactId>
+<<<<<<< HEAD
             <version>0.1BETA</version>
+=======
+            <version>${project.parent.version}</version>
+>>>>>>> upstream/master
         </dependency>
         <dependency>
             <groupId>org.apache.hbase</groupId>
@@ -135,4 +143,8 @@
             </exclusions>
         </dependency>
     </dependencies>
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> upstream/master

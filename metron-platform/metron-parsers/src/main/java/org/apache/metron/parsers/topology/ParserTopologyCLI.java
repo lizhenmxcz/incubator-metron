@@ -23,12 +23,29 @@ import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.utils.Utils;
+<<<<<<< HEAD
 import com.google.common.base.Joiner;
 import org.apache.commons.cli.*;
 import org.apache.metron.common.spout.kafka.SpoutConfig;
 import org.apache.metron.parsers.topology.config.Arg;
 import org.apache.metron.parsers.topology.config.ConfigHandlers;
 
+=======
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.base.Joiner;
+import org.apache.commons.cli.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.metron.common.spout.kafka.SpoutConfig;
+import org.apache.metron.common.spout.kafka.SpoutConfigOptions;
+import org.apache.metron.common.utils.JSONUtils;
+import org.apache.metron.parsers.topology.config.Arg;
+import org.apache.metron.parsers.topology.config.ConfigHandlers;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.EnumMap;
+>>>>>>> upstream/master
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -67,9 +84,29 @@ public class ParserTopologyCLI {
       o.setType(Number.class);
       return o;
     }),
+<<<<<<< HEAD
     PARSER_PARALLISM("pp", code -> {
       Option o = new Option(code, "parser_p", true, "Parser Parallelism Hint");
       o.setArgName("PARSER_PARALLELISM_HINT");
+=======
+    PARSER_PARALLELISM("pp", code -> {
+      Option o = new Option(code, "parser_p", true, "Parser Parallelism Hint");
+      o.setArgName("PARALLELISM_HINT");
+      o.setRequired(false);
+      o.setType(Number.class);
+      return o;
+    }),
+    INVALID_WRITER_PARALLELISM("iwp", code -> {
+      Option o = new Option(code, "invalid_writer_p", true, "Invalid Message Writer Parallelism Hint");
+      o.setArgName("PARALLELISM_HINT");
+      o.setRequired(false);
+      o.setType(Number.class);
+      return o;
+    }),
+    ERROR_WRITER_PARALLELISM("ewp", code -> {
+      Option o = new Option(code, "error_writer_p", true, "Error Writer Parallelism Hint");
+      o.setArgName("PARALLELISM_HINT");
+>>>>>>> upstream/master
       o.setRequired(false);
       o.setType(Number.class);
       return o;
@@ -83,7 +120,25 @@ public class ParserTopologyCLI {
     }),
     PARSER_NUM_TASKS("pnt", code -> {
       Option o = new Option(code, "parser_num_tasks", true, "Parser Num Tasks");
+<<<<<<< HEAD
       o.setArgName("PARSER_NUM_TASKS");
+=======
+      o.setArgName("NUM_TASKS");
+      o.setRequired(false);
+      o.setType(Number.class);
+      return o;
+    }),
+    INVALID_WRITER_NUM_TASKS("iwnt", code -> {
+      Option o = new Option(code, "invalid_writer_num_tasks", true, "Invalid Writer Num Tasks");
+      o.setArgName("NUM_TASKS");
+      o.setRequired(false);
+      o.setType(Number.class);
+      return o;
+    }),
+    ERROR_WRITER_NUM_TASKS("ewnt", code -> {
+      Option o = new Option(code, "error_writer_num_tasks", true, "Error Writer Num Tasks");
+      o.setArgName("NUM_TASKS");
+>>>>>>> upstream/master
       o.setRequired(false);
       o.setType(Number.class);
       return o;
@@ -121,13 +176,32 @@ public class ParserTopologyCLI {
     }, new ConfigHandlers.SetMessageTimeoutHandler()
     )
     ,EXTRA_OPTIONS("e", code -> {
+<<<<<<< HEAD
       Option o = new Option(code, "extra_options", true, "Extra options in the form of a JSON file with a map for content.");
+=======
+      Option o = new Option(code, "extra_topology_options", true, "Extra options in the form of a JSON file with a map for content.");
+>>>>>>> upstream/master
       o.setArgName("JSON_FILE");
       o.setRequired(false);
       o.setType(String.class);
       return o;
     }, new ConfigHandlers.LoadJSONHandler()
     )
+<<<<<<< HEAD
+=======
+    ,SPOUT_CONFIG("esc", code -> {
+      Option o = new Option(code
+                           , "extra_kafka_spout_config"
+                           , true
+                           , "Extra spout config options in the form of a JSON file with a map for content.  " +
+                             "Possible keys are: " + Joiner.on(",").join(SpoutConfigOptions.values()));
+      o.setArgName("JSON_FILE");
+      o.setRequired(false);
+      o.setType(String.class);
+      return o;
+    }
+    )
+>>>>>>> upstream/master
     ,TEST("t", code ->
     {
       Option o = new Option("t", "test", true, "Run in Test Mode");
@@ -226,8 +300,21 @@ public class ParserTopologyCLI {
       String sensorType= ParserOptions.SENSOR_TYPE.get(cmd);
       int spoutParallelism = Integer.parseInt(ParserOptions.SPOUT_PARALLELISM.get(cmd, "1"));
       int spoutNumTasks = Integer.parseInt(ParserOptions.SPOUT_NUM_TASKS.get(cmd, "1"));
+<<<<<<< HEAD
       int parserParallelism = Integer.parseInt(ParserOptions.PARSER_PARALLISM.get(cmd, "1"));
       int parserNumTasks= Integer.parseInt(ParserOptions.PARSER_NUM_TASKS.get(cmd, "1"));
+=======
+      int parserParallelism = Integer.parseInt(ParserOptions.PARSER_PARALLELISM.get(cmd, "1"));
+      int parserNumTasks= Integer.parseInt(ParserOptions.PARSER_NUM_TASKS.get(cmd, "1"));
+      int errorParallelism = Integer.parseInt(ParserOptions.ERROR_WRITER_PARALLELISM.get(cmd, "1"));
+      int errorNumTasks= Integer.parseInt(ParserOptions.ERROR_WRITER_NUM_TASKS.get(cmd, "1"));
+      int invalidParallelism = Integer.parseInt(ParserOptions.INVALID_WRITER_PARALLELISM.get(cmd, "1"));
+      int invalidNumTasks= Integer.parseInt(ParserOptions.INVALID_WRITER_NUM_TASKS.get(cmd, "1"));
+      EnumMap<SpoutConfigOptions, Object> spoutConfig = new EnumMap<SpoutConfigOptions, Object>(SpoutConfigOptions.class);
+      if(ParserOptions.SPOUT_CONFIG.has(cmd)) {
+        spoutConfig = readSpoutConfig(new File(ParserOptions.SPOUT_CONFIG.get(cmd)));
+      }
+>>>>>>> upstream/master
       SpoutConfig.Offset offset = cmd.hasOption("t") ? SpoutConfig.Offset.BEGINNING : SpoutConfig.Offset.WHERE_I_LEFT_OFF;
       TopologyBuilder builder = ParserTopologyBuilder.build(zookeeperUrl,
               brokerUrl,
@@ -236,7 +323,17 @@ public class ParserTopologyCLI {
               spoutParallelism,
               spoutNumTasks,
               parserParallelism,
+<<<<<<< HEAD
               parserNumTasks);
+=======
+              parserNumTasks,
+              invalidParallelism,
+              invalidNumTasks,
+              errorParallelism,
+              errorNumTasks,
+              spoutConfig
+      );
+>>>>>>> upstream/master
       Config stormConf = ParserOptions.getConfig(cmd);
 
       if (ParserOptions.TEST.has(cmd)) {
@@ -253,4 +350,26 @@ public class ParserTopologyCLI {
       System.exit(-1);
     }
   }
+<<<<<<< HEAD
+=======
+  private static EnumMap<SpoutConfigOptions, Object> readSpoutConfig(File inputFile) {
+    String json = null;
+    if (inputFile.exists()) {
+      try {
+        json = FileUtils.readFileToString(inputFile);
+      } catch (IOException e) {
+        throw new IllegalStateException("Unable to process JSON file " + inputFile, e);
+      }
+    }
+    else {
+      throw new IllegalArgumentException("Unable to load JSON file at " + inputFile.getAbsolutePath());
+    }
+    try {
+      return SpoutConfigOptions.coerceMap(JSONUtils.INSTANCE.load(json, new TypeReference<Map<String, Object>>() {
+      }));
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to process JSON.", e);
+    }
+  }
+>>>>>>> upstream/master
 }

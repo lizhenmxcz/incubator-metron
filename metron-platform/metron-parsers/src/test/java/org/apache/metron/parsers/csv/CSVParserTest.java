@@ -95,5 +95,16 @@ public class CSVParserTest {
       Assert.assertEquals(" bar", o.get("col2"));
       Assert.assertEquals(" grok", o.get("col3"));
     }
+<<<<<<< HEAD
+=======
+    {
+      String line = "foo";
+      try {
+        List<JSONObject> results = parser.parse(Bytes.toBytes(line));
+        Assert.fail("Expected exception");
+      }
+      catch(IllegalStateException iae) {}
+    }
+>>>>>>> upstream/master
   }
 }

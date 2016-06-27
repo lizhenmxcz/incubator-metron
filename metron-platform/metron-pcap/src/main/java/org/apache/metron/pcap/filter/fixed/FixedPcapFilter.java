@@ -21,7 +21,11 @@ package org.apache.metron.pcap.filter.fixed;
 import com.google.common.base.Joiner;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.metron.common.Constants;
+<<<<<<< HEAD
 import org.apache.metron.common.query.VariableResolver;
+=======
+import org.apache.metron.common.dsl.VariableResolver;
+>>>>>>> upstream/master
 import org.apache.metron.pcap.PacketInfo;
 import org.apache.metron.pcap.PcapHelper;
 import org.apache.metron.pcap.filter.PcapFilter;
@@ -85,11 +89,19 @@ public class FixedPcapFilter implements PcapFilter {
   @Override
   public boolean test(PacketInfo pi) {
     VariableResolver resolver = new PcapFieldResolver(packetToFields(pi));
+<<<<<<< HEAD
     String srcAddrIn = resolver.resolve(Constants.Fields.SRC_ADDR.getName());
     String srcPortIn = resolver.resolve(Constants.Fields.SRC_PORT.getName());
     String dstAddrIn = resolver.resolve(Constants.Fields.DST_ADDR.getName());
     String dstPortIn = resolver.resolve(Constants.Fields.DST_PORT.getName());
     String protocolIn = resolver.resolve(Constants.Fields.PROTOCOL.getName());
+=======
+    String srcAddrIn = (String) resolver.resolve(Constants.Fields.SRC_ADDR.getName());
+    String srcPortIn = (String) resolver.resolve(Constants.Fields.SRC_PORT.getName());
+    String dstAddrIn = (String) resolver.resolve(Constants.Fields.DST_ADDR.getName());
+    String dstPortIn = (String) resolver.resolve(Constants.Fields.DST_PORT.getName());
+    String protocolIn = (String) resolver.resolve(Constants.Fields.PROTOCOL.getName());
+>>>>>>> upstream/master
 
     if (areMatch(protocol, protocolIn)) {
       if (matchesSourceAndDestination(srcAddrIn, srcPortIn, dstAddrIn, dstPortIn)) {
